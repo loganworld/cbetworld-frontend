@@ -7,7 +7,9 @@ const initialState: StoreType = {
 	updated: 0,
 	lasttime: 0,
 	loading: false,
+	currentAccountName: '',
 	currentAccountMail: '',
+	currentAccountAddress: '',
 	token:	'',
 	logined: false
 }

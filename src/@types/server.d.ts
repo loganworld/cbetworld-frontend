@@ -18,6 +18,8 @@ interface StoreType {
     updated:        number
     loading?:       boolean
     currentAccountMail:    string
+    currentAccountName:    string
+    currentAccountAddress: string
     token:          string
     logined:        boolean
 	lasttime:		number

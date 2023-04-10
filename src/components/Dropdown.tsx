@@ -16,24 +16,28 @@ export default function Dropdown({values, selectedKey, props, onChange}: SwitchI
 	const [status, setStatus] = React.useState({
 		selectedKey: selectedKey	
 	})
+	const [showMenu, setShowMenu] = React.useState(false)
 
 	const panelRef = React.useRef(null)
 
 	return (
-		<StyledDropdownPanel {...props} onMouseUp={() => {panelRef.current.style.display = "block" }} onBlur={() => {panelRef.current.style.display = "none" }}>
+		<StyledDropdownPanel {...props} onMouseUp={() => { setShowMenu(true) }} onBlur={() => {setShowMenu(false)}}>
 			{status.selectedKey}
 			<div className="drop-icon">
 				<Icon icon="Down" />
 			</div>
-			<div className="menu-panel" ref={panelRef}>
+			<div className="menu-panel"  ref={panelRef} style={{display: showMenu ? 'block' : 'none'}}>
 				{
 					values && values.map((item, index) => {
-						return <div key={index} className="item flex middle" onBlur={() => {panelRef.current.style.display = "none" }} onClick={() => {setStatus({selectedKey: item.symbol || item.name}); onChange(item.key || item.symbol); panelRef.current.style.display = "none" }}>
+						return <div key={index} className="item flex middle" onBlur={() => {setShowMenu(false) }} onClick={() => {setStatus({selectedKey: item.symbol || item.name}); onChange(item.key || item.symbol); setShowMenu(false)}}>
 							{item.symbol || item.name }
 						</div>		
 					})
 				}
 			</div>
+			{
+				showMenu && <div className="background" onClick={() => {setShowMenu(false)}}/>
+			}
 		</StyledDropdownPanel>
 	);
 }
@@ -47,6 +51,14 @@ const StyledDropdownPanel = styled.div`
 	position: relative;
 	min-width: 140px;
 	font-size: 1rem;
+	.background{
+		width: 100vw;
+		height: 100vh;
+		background-color: transparent;
+		position: fixed;
+		left: 0;
+		top: 0;
+	}
 	.drop-icon{
 		position: absolute;
 		right: 1rem;

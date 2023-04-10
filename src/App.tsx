@@ -11,8 +11,6 @@ import Affiliate from './pages/Affiliate';
 
 function App() {
 	// @ts-ignore
-
-
 	return (
 		<BrowserRouter>
 			<Switch>
